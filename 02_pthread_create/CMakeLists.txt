@@ -32,5 +32,11 @@ target_link_libraries(thread_kill1 -lpthread)
 add_executable(thread_kill2 027_thread_kill2.cpp)
 target_link_libraries(thread_kill2 -lpthread)
 
+add_executable(thread_sig 028_thread_sig.cpp)
+target_link_libraries(thread_sig -lpthread)
 
+
+# 线程清理操作
+add_executable(thread_clean 029_thread_clean.cpp)
+target_link_libraries(thread_clean -lpthread)
 
