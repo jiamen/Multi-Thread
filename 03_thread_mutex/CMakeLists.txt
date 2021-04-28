@@ -1,42 +1,20 @@
 
 cmake_minimum_required(VERSION 2.8)
 
-project(pthread_create)
+project(pthread_mutex)
 
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -g -Wall" )
 set( CMAKE_BUILD_TYPE "Release" )
 
-add_executable(pthread_create 021_pthread_create.cpp)
-target_link_libraries(pthread_create -lpthread)
-
-# 主线程的特殊性
-add_executable(main_thread 022_main_thread.cpp)
-target_link_libraries(main_thread -lpthread)
-
-# 线程退出
-add_executable(thread_exit 023_thread_exit.cpp)
-target_link_libraries(thread_exit -lpthread)
-
-# 线程连接和分离
-add_executable(thread_join 024_thread_join.cpp)
-target_link_libraries(thread_join -lpthread)
-
-# 线程取消
-add_executable(thread_cancel 025_thread_cancel.cpp)
-target_link_libraries(thread_cancel -lpthread)
+add_executable(mutex mutex.cpp)
+target_link_libraries(mutex -lpthread)
 
 
-# 向线程发送信号
-add_executable(thread_kill1 026_thread_kill1.cpp)
-target_link_libraries(thread_kill1 -lpthread)
-add_executable(thread_kill2 027_thread_kill2.cpp)
-target_link_libraries(thread_kill2 -lpthread)
+# 互斥锁实例
+add_executable(thread_mutex 031_thread_mutex.cpp)
+target_link_libraries(thread_mutex -lpthread)
 
-add_executable(thread_sig 028_thread_sig.cpp)
-target_link_libraries(thread_sig -lpthread)
-
-
-# 线程清理操作
-add_executable(thread_clean 029_thread_clean.cpp)
-target_link_libraries(thread_clean -lpthread)
+# 读写锁实例
+add_executable(thread_rwlock 032_thread_rwlock.cpp)
+target_link_libraries(thread_rwlock -lpthread)
 

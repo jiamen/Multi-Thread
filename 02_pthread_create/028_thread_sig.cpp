@@ -3,11 +3,11 @@
 //
 
 /* threadsig.c */
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<signal.h>
-#include<pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <signal.h>
+#include <pthread.h>
 #include <unistd.h>         // sleep函数
 
 void sighandler(int signo);
