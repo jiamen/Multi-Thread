@@ -55,8 +55,8 @@ void* thread_fun2(void* arg)
 {
     int err;
 
-    pthread_rwlock_rdlock(&rwlock);     // 读模式加锁
-    // pthread_rwlock_wrlock(&rwlock);     // 写模式加锁
+    // pthread_rwlock_rdlock(&rwlock);     // 读模式加锁
+    pthread_rwlock_wrlock(&rwlock);     // 写模式加锁
     printf("thread 2 print num %d\n", num);
 
     sleep(3);
