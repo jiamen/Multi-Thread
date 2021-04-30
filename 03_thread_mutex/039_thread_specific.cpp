@@ -1,6 +1,8 @@
 //
 // Created by zlc on 2021/4/29.
 //
+// Description： 线程的私有数据，一个像errno一样的数据
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,28 +12,32 @@
 #include <unistd.h>         // sleep函数
 #include <fcntl.h>          // O_RDWR等宏定义
 
-// #include <sys/mman.h>       // 使用shm_open来操作共享内存
-#include <errno.h>
+pthread_key_t key;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void* thread_fun1(void *arg)
+void* thread_fun1(void* arg)
 {
     printf("thread 1 start!\n");
-    open("1.c", O_RDWR);
+    int a = 1;
+    pthread_setspecific(key, (void *)a);
     sleep(2);
-    printf("thread 1 errno is : %d\n", errno);
+    printf("thread 1 key->data is %d\n", pthread_getspecific(key));
 }
 
-void* thread_fun2(void *arg)
+void* thread_fun2(void* arg)
 {
     sleep(1);
     printf("thread 2 start!\n");
-    open("../t.c", O_RDWR);
-    printf("thread 2 errno is : %d\n", errno);  // 线程1与线程2的errno值不同
+    int a = 2;
+    pthread_setspecific(key, (void*)a);     // 将线程私有数据与键值关联
+    printf("thread 2 key->data is %d\n", pthread_getspecific(key));
 }
 
 int main(int argc, char* *argv)
 {
     pthread_t tid1, tid2;
+
+    pthread_key_create(&key, NULL);
 
     if (pthread_create(&tid1, NULL, thread_fun1, NULL))
     {
@@ -40,7 +46,7 @@ int main(int argc, char* *argv)
     }
     if (pthread_create(&tid2, NULL, thread_fun2, NULL))
     {
-        printf("create new thread 2 failed!\n");
+        printf("create new thread  2 failed!\n");
         return 0;
     }
 
@@ -49,5 +55,4 @@ int main(int argc, char* *argv)
 
     return 0;
 }
-
 

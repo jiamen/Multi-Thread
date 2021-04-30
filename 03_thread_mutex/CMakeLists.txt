@@ -39,3 +39,24 @@ target_link_libraries(thread_attr_stack -lpthread)
 add_executable(thread_mutexattr 037_thread_mutexattr.cpp)
 target_link_libraries(thread_mutexattr -lpthread -lrt)
 
+# 线程私有数据
+add_executable(thread_private 038_thread_private.cpp)
+target_link_libraries(thread_private -lpthread -lrt)
+# 线程的私有数据，一个像errno一样的数据
+add_executable(thread_specific 039_thread_specific.cpp)
+target_link_libraries(thread_specific -lpthread -lrt)
+
+
+# 安全的fork进程
+# 1.主进程中加锁，子进程中想要加锁，会陷入死锁
+add_executable(thread_fork1 040_thread_fork1.cpp)
+target_link_libraries(thread_fork1 -lpthread -lrt)
+# 2.主进程中加锁，子进程顺利解锁执行
+add_executable(thread_fork2 041_thread_fork2.cpp)
+target_link_libraries(thread_fork2 -lpthread -lrt)
+# 3.pthread_atfork()函数
+add_executable(thread_fork3 042_thread_fork3.cpp)
+target_link_libraries(thread_fork3 -pthread -lrt)
+
+
+
